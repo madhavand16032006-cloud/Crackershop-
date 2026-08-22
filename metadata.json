@@ -1,0 +1,6 @@
+{
+  "name": "Sivakasi Fireworks Catalogue & WhatsApp Ordering",
+  "description": "Professional Sivakasi fireworks e-commerce catalogue and direct WhatsApp ordering platform with store owner admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
