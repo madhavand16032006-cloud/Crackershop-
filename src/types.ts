@@ -106,6 +106,7 @@ export interface ShopSettings {
 export interface AdminUser {
   id: string;
   name: string;
+  username?: string;
   email: string;
   role: 'admin' | 'manager';
   profileImage?: string;

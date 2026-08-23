@@ -306,15 +306,15 @@ export const api = {
   },
 
   // Auth
-  async login(email: string, password: string): Promise<{ token: string; user: AdminUser }> {
+  async login(usernameOrEmail: string, password: string): Promise<{ token: string; user: AdminUser }> {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ username: usernameOrEmail, email: usernameOrEmail, password })
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.error || 'Invalid credentials');
+      throw new Error(err.error || 'Invalid username or password');
     }
     return res.json();
   }

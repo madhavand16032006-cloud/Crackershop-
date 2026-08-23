@@ -30,14 +30,15 @@ const checkAuth = (req: express.Request, res: express.Response, next: express.Ne
 // ==================== AUTH API ====================
 app.post('/api/auth/login', (req, res) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password are required' });
+    const { email, username, password } = req.body;
+    const identifier = username || email;
+    if (!identifier || !password) {
+      return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    const user = db.verifyAdmin(email, password);
+    const user = db.verifyAdmin(identifier, password);
     if (!user) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).json({ error: 'Invalid username or password' });
     }
 
     const token = `sivakasi_token_${Date.now()}_${Math.random().toString(36).substring(7)}`;
@@ -52,11 +53,16 @@ app.post('/api/auth/login', (req, res) => {
 });
 
 app.get('/api/auth/me', checkAuth, (req, res) => {
+  const admin = (db as any).data?.adminUser;
+  if (admin) {
+    const { passwordHash, ...user } = admin;
+    return res.json({ user });
+  }
   res.json({
     user: {
       id: "admin_1",
-      name: "Shop Owner Admin",
-      email: "admin@sivakasifireworks.com",
+      name: "Madhavan",
+      email: "madhavan@srimeenakshifireworks.com",
       role: "admin"
     }
   });
@@ -74,7 +80,11 @@ app.get('/api/shop', (req, res) => {
 
 app.put('/api/shop', checkAuth, (req, res) => {
   try {
-    const updated = db.updateShopSettings(req.body);
+    const { adminPassword, ...shopUpdates } = req.body;
+    if (adminPassword) {
+      db.updateAdminPassword(adminPassword);
+    }
+    const updated = db.updateShopSettings(shopUpdates);
     res.json(updated);
   } catch (err: any) {
     res.status(500).json({ error: err.message });

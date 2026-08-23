@@ -1,10 +1,11 @@
 {
   "adminUser": {
     "id": "admin_1",
-    "name": "Shop Owner Admin",
-    "email": "admin@sivakasifireworks.com",
+    "name": "Madhavan",
+    "username": "Madhavan",
+    "email": "madhavan@srimeenakshifireworks.com",
     "role": "admin",
-    "passwordHash": "admin123"
+    "passwordHash": "16032006"
   },
   "shopSettings": {
     "shopName": "Sri Meenakshi Sivakasi Fireworks",

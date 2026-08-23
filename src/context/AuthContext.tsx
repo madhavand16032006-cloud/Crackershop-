@@ -40,9 +40,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     checkToken();
   }, []);
 
-  const login = async (email: string, pass: string): Promise<boolean> => {
+  const login = async (usernameOrEmail: string, pass: string): Promise<boolean> => {
     try {
-      const data = await api.login(email, pass);
+      const data = await api.login(usernameOrEmail, pass);
       setToken(data.token);
       setUser(data.user);
       localStorage.setItem('sivakasi_admin_token', data.token);
@@ -50,8 +50,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       showToast(`Welcome back, ${data.user.name}!`);
       return true;
     } catch (err: any) {
-      showToast(err.message || 'Login failed', 'error');
-      return false;
+      showToast(err.message || 'Invalid username or password', 'error');
+      throw err;
     }
   };
 

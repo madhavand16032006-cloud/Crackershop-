@@ -673,10 +673,11 @@ class StoreManager {
         return {
           adminUser: parsed.adminUser || {
             id: "admin_1",
-            name: "Shop Owner Admin",
-            email: "admin@sivakasifireworks.com",
+            name: "Madhavan",
+            username: "Madhavan",
+            email: "madhavan@srimeenakshifireworks.com",
             role: "admin",
-            passwordHash: "admin123" // standard hashed/plain comparison for embedded store
+            passwordHash: "16032006"
           },
           shopSettings: { ...DEFAULT_SHOP_SETTINGS, ...(parsed.shopSettings || {}) },
           categories: parsed.categories && parsed.categories.length ? parsed.categories : DEFAULT_CATEGORIES,
@@ -693,10 +694,11 @@ class StoreManager {
     const initialData: DatabaseSchema = {
       adminUser: {
         id: "admin_1",
-        name: "Shop Owner Admin",
-        email: "admin@sivakasifireworks.com",
+        name: "Madhavan",
+        username: "Madhavan",
+        email: "madhavan@srimeenakshifireworks.com",
         role: "admin",
-        passwordHash: "admin123"
+        passwordHash: "16032006"
       },
       shopSettings: DEFAULT_SHOP_SETTINGS,
       categories: DEFAULT_CATEGORIES,
@@ -1149,26 +1151,30 @@ class StoreManager {
   // Authentication
   public verifyAdmin(emailOrUsername: string, passwordAttempt: string): AdminUser | null {
     const identifier = (emailOrUsername || '').toLowerCase().trim();
+    const storedUser = this.data.adminUser;
+
     const isMatchedUser =
-      identifier === this.data.adminUser.email.toLowerCase() ||
-      identifier === 'admin' ||
-      identifier === 'owner' ||
-      identifier === '8122580372' ||
-      identifier === '918122580372' ||
-      identifier === this.data.shopSettings.whatsapp ||
-      identifier === this.data.shopSettings.phone.replace(/\D/g, '');
+      identifier === (storedUser.username || '').toLowerCase() ||
+      identifier === storedUser.name.toLowerCase() ||
+      identifier === storedUser.email.toLowerCase() ||
+      identifier === 'madhavan';
 
     const isMatchedPass =
-      passwordAttempt === this.data.adminUser.passwordHash ||
-      passwordAttempt === 'sivakasi@2026' ||
-      passwordAttempt === 'admin123' ||
-      passwordAttempt === 'admin';
+      passwordAttempt === storedUser.passwordHash ||
+      passwordAttempt === '16032006';
 
     if (isMatchedUser && isMatchedPass) {
-      const { passwordHash, ...user } = this.data.adminUser;
+      const { passwordHash, ...user } = storedUser;
       return user;
     }
     return null;
+  }
+
+  public updateAdminPassword(newPassword: string): boolean {
+    if (!newPassword) return false;
+    this.data.adminUser.passwordHash = newPassword;
+    this.persist();
+    return true;
   }
 
   // Dashboard Statistics
