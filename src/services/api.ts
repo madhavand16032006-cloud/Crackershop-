@@ -317,5 +317,31 @@ export const api = {
       throw new Error(err.error || 'Invalid username or password');
     }
     return res.json();
+  },
+
+  async getMe(): Promise<{ user: AdminUser }> {
+    const res = await fetch('/api/auth/me', {
+      headers: {
+        ...getAuthHeader()
+      }
+    });
+    if (!res.ok) throw new Error('Failed to fetch authenticated user profile');
+    return res.json();
+  },
+
+  async updateProfile(data: { name?: string; username?: string; email?: string; password?: string; profileImage?: string }): Promise<{ success: boolean; user: AdminUser }> {
+    const res = await fetch('/api/auth/profile', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeader()
+      },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Failed to update admin profile');
+    }
+    return res.json();
   }
 };

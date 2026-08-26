@@ -18,13 +18,13 @@ const DB_FILE = path.join(DATA_DIR, 'store.json');
 const DEFAULT_SHOP_SETTINGS: ShopSettings = {
   shopName: "Sri Meenakshi Sivakasi Fireworks",
   tagline: "Authentic Direct Factory Fireworks & Mega Crackers at Wholesale Prices",
-  ownerName: "K. R. Vairamuthu & Sons",
+  ownerName: "Madhavan",
   ownerPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
   logo: "https://images.unsplash.com/photo-1498931299472-f7a63a5a1cfa?auto=format&fit=crop&w=150&q=80",
   banner: "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1600&q=80",
   phone: "+91 81225 80372",
   whatsapp: "918122580372", // international format without plus for wa.me
-  email: "orders@srimeenakshifireworks.com",
+  email: "madhavan@srimeenakshifireworks.com",
   address: "142/3-B, Sattur Road, Near Bypass Junction, Sivakasi",
   city: "Sivakasi",
   state: "Tamil Nadu",
@@ -32,7 +32,7 @@ const DEFAULT_SHOP_SETTINGS: ShopSettings = {
   description: "Direct from the Fireworks Capital of India, Sivakasi. We manufacture and supply 100% genuine, CSIR-NEERI approved Green Crackers with high safety standards, vibrant colours, and unbeatable festive discounts for Diwali, weddings, and celebrations across India.",
   announcement: "💥 DIWALI 2026 PRE-BOOKING OPEN! Get up to 60% Factory Discount on Early WhatsApp Orders! Free Sivakasi Gift Box on orders above ₹3,000!",
   minimumOrderAmount: 500,
-  upiId: "srimeenakshi.fireworks@okaxis",
+  upiId: "madhavan.fireworks@okaxis",
   licenseNumber: "SIV/EXP/TN/2026/4489",
   festivalSeason: "Diwali 2026 Mega Celebration",
   socialLinks: {
@@ -1149,6 +1149,11 @@ class StoreManager {
   }
 
   // Authentication
+  public getAdminUser(): AdminUser {
+    const { passwordHash, ...user } = this.data.adminUser;
+    return user;
+  }
+
   public verifyAdmin(emailOrUsername: string, passwordAttempt: string): AdminUser | null {
     const identifier = (emailOrUsername || '').toLowerCase().trim();
     const storedUser = this.data.adminUser;
@@ -1170,9 +1175,22 @@ class StoreManager {
     return null;
   }
 
+  public updateAdminProfile(updates: { name?: string; username?: string; email?: string; password?: string; profileImage?: string }): AdminUser {
+    if (updates.name) this.data.adminUser.name = updates.name.trim();
+    if (updates.username) this.data.adminUser.username = updates.username.trim();
+    if (updates.email) this.data.adminUser.email = updates.email.trim();
+    if (updates.profileImage) this.data.adminUser.profileImage = updates.profileImage;
+    if (updates.password && updates.password.trim()) {
+      this.data.adminUser.passwordHash = updates.password.trim();
+    }
+    this.persist();
+    const { passwordHash, ...user } = this.data.adminUser;
+    return user;
+  }
+
   public updateAdminPassword(newPassword: string): boolean {
     if (!newPassword) return false;
-    this.data.adminUser.passwordHash = newPassword;
+    this.data.adminUser.passwordHash = newPassword.trim();
     this.persist();
     return true;
   }

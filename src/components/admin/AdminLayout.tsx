@@ -138,8 +138,10 @@ export const AdminLayout: React.FC = () => {
 
           <div className="flex items-center justify-between pt-2 border-t border-slate-800/60 text-xs">
             <div className="min-w-0 pr-2">
-              <span className="text-white font-bold block truncate">{user?.username || 'Admin'}</span>
-              <span className="text-[10px] text-slate-500 truncate block">Store Manager</span>
+              <span className="text-white font-bold block truncate">{user?.name || user?.username || 'Madhavan'}</span>
+              <span className="text-[10px] text-amber-400/90 font-medium truncate block">
+                {user?.username ? `@${user.username} (Owner)` : 'Store Owner'}
+              </span>
             </div>
             <button
               onClick={handleLogout}

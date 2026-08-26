@@ -53,19 +53,22 @@ app.post('/api/auth/login', (req, res) => {
 });
 
 app.get('/api/auth/me', checkAuth, (req, res) => {
-  const admin = (db as any).data?.adminUser;
-  if (admin) {
-    const { passwordHash, ...user } = admin;
-    return res.json({ user });
+  try {
+    const user = db.getAdminUser();
+    res.json({ user });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
   }
-  res.json({
-    user: {
-      id: "admin_1",
-      name: "Madhavan",
-      email: "madhavan@srimeenakshifireworks.com",
-      role: "admin"
-    }
-  });
+});
+
+app.put('/api/auth/profile', checkAuth, (req, res) => {
+  try {
+    const { name, username, email, password, profileImage } = req.body;
+    const updatedUser = db.updateAdminProfile({ name, username, email, password, profileImage });
+    res.json({ success: true, user: updatedUser });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // ==================== SHOP PROFILE API ====================
@@ -80,9 +83,14 @@ app.get('/api/shop', (req, res) => {
 
 app.put('/api/shop', checkAuth, (req, res) => {
   try {
-    const { adminPassword, ...shopUpdates } = req.body;
-    if (adminPassword) {
-      db.updateAdminPassword(adminPassword);
+    const { adminPassword, adminUsername, adminName, adminEmail, ...shopUpdates } = req.body;
+    if (adminPassword || adminUsername || adminName || adminEmail) {
+      db.updateAdminProfile({
+        name: adminName,
+        username: adminUsername,
+        email: adminEmail,
+        password: adminPassword
+      });
     }
     const updated = db.updateShopSettings(shopUpdates);
     res.json(updated);

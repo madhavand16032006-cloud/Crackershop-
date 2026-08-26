@@ -22,9 +22,23 @@ interface ShopContextType {
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [shopSettings, setShopSettings] = useState<ShopSettings | null>(null);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [shopSettings, setShopSettings] = useState<ShopSettings | null>(() => {
+    try {
+      const cached = localStorage.getItem('sivakasi_shop_settings');
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [categories, setCategories] = useState<Category[]>(() => {
+    try {
+      const cached = localStorage.getItem('sivakasi_categories');
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState<boolean>(!shopSettings);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const removeToast = React.useCallback((id: string) => {
@@ -47,6 +61,12 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
       ]);
       setShopSettings(settingsData);
       setCategories(categoriesData);
+      try {
+        localStorage.setItem('sivakasi_shop_settings', JSON.stringify(settingsData));
+        localStorage.setItem('sivakasi_categories', JSON.stringify(categoriesData));
+      } catch (e) {
+        console.warn('Could not cache shop data in localStorage', e);
+      }
     } catch (err) {
       console.error('Failed to load shop configuration:', err);
     } finally {
@@ -54,9 +74,14 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const updateSettings = async (data: Partial<ShopSettings>) => {
+  const updateSettings = async (data: Partial<ShopSettings> & { adminPassword?: string; adminUsername?: string; adminName?: string; adminEmail?: string }) => {
     const updated = await api.updateShopSettings(data);
     setShopSettings(updated);
+    try {
+      localStorage.setItem('sivakasi_shop_settings', JSON.stringify(updated));
+    } catch (e) {
+      console.warn('Could not cache shop data in localStorage', e);
+    }
     showToast('Shop details updated successfully!');
     return updated;
   };

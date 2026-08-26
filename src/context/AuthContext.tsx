@@ -8,14 +8,22 @@ interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
   loading: boolean;
-  login: (email: string, pass: string) => Promise<boolean>;
+  login: (usernameOrEmail: string, pass: string) => Promise<boolean>;
   logout: () => void;
+  setUserProfile: (user: AdminUser) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<AdminUser | null>(null);
+  const [user, setUser] = useState<AdminUser | null>(() => {
+    try {
+      const stored = localStorage.getItem('sivakasi_admin_user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
   const [token, setToken] = useState<string | null>(() => {
     return localStorage.getItem('sivakasi_admin_token');
   });
@@ -25,20 +33,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const checkToken = async () => {
       const storedToken = localStorage.getItem('sivakasi_admin_token');
-      const storedUser = localStorage.getItem('sivakasi_admin_user');
-      if (storedToken && storedUser) {
+      if (storedToken) {
         try {
-          setUser(JSON.parse(storedUser));
-          setToken(storedToken);
+          const { user: remoteUser } = await api.getMe();
+          setUser(remoteUser);
+          localStorage.setItem('sivakasi_admin_user', JSON.stringify(remoteUser));
         } catch {
-          localStorage.removeItem('sivakasi_admin_token');
-          localStorage.removeItem('sivakasi_admin_user');
+          // Token expired or invalid
+          console.warn('Session expired or server restarted');
         }
       }
       setLoading(false);
     };
     checkToken();
   }, []);
+
+  const setUserProfile = (updatedUser: AdminUser) => {
+    setUser(updatedUser);
+    localStorage.setItem('sivakasi_admin_user', JSON.stringify(updatedUser));
+  };
 
   const login = async (usernameOrEmail: string, pass: string): Promise<boolean> => {
     try {
@@ -71,7 +84,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthenticated: Boolean(token),
         loading,
         login,
-        logout
+        logout,
+        setUserProfile
       }}
     >
       {children}
