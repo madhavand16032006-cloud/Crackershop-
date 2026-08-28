@@ -16,20 +16,20 @@ const DATA_DIR = path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'store.json');
 
 const DEFAULT_SHOP_SETTINGS: ShopSettings = {
-  shopName: "Sri Meenakshi Sivakasi Fireworks",
+  shopName: "Omtecho Sivakasi Fireworks",
   tagline: "Authentic Direct Factory Fireworks & Mega Crackers at Wholesale Prices",
   ownerName: "Madhavan",
   ownerPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
   logo: "https://images.unsplash.com/photo-1498931299472-f7a63a5a1cfa?auto=format&fit=crop&w=150&q=80",
-  banner: "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1600&q=80",
+  banner: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80",
   phone: "+91 81225 80372",
   whatsapp: "918122580372", // international format without plus for wa.me
-  email: "madhavan@srimeenakshifireworks.com",
+  email: "support@omtecho.com",
   address: "142/3-B, Sattur Road, Near Bypass Junction, Sivakasi",
   city: "Sivakasi",
   state: "Tamil Nadu",
   pincode: "626123",
-  description: "Direct from the Fireworks Capital of India, Sivakasi. We manufacture and supply 100% genuine, CSIR-NEERI approved Green Crackers with high safety standards, vibrant colours, and unbeatable festive discounts for Diwali, weddings, and celebrations across India.",
+  description: "Direct from the Fireworks Capital of India, Sivakasi. Omtecho manufactures and supplies 100% genuine, CSIR-NEERI approved Green Crackers with high safety standards, vibrant colours, and unbeatable festive discounts for Diwali, weddings, and celebrations across India.",
   announcement: "💥 DIWALI 2026 PRE-BOOKING OPEN! Get up to 60% Factory Discount on Early WhatsApp Orders! Free Sivakasi Gift Box on orders above ₹3,000!",
   minimumOrderAmount: 500,
   upiId: "madhavan.fireworks@okaxis",

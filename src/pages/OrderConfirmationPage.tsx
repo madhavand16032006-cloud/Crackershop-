@@ -16,6 +16,7 @@ import {
 import { Order } from '../types';
 import { api } from '../services/api';
 import { useShop } from '../context/ShopContext';
+import { OmtechoLogo } from '../components/common/OmtechoLogo';
 import { formatCurrency, generateWhatsAppOrderMessage, getWhatsAppUrl } from '../utils/whatsapp';
 
 export const OrderConfirmationPage: React.FC = () => {
@@ -159,13 +160,12 @@ export const OrderConfirmationPage: React.FC = () => {
 
       {/* Printable Invoice / Order Summary Receipt */}
       <div id="printable-order-slip" className="p-6 sm:p-8 rounded-3xl bg-slate-900 border border-slate-800 space-y-6">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-          <div>
-            <h3 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" />
-              {shopName} - Order Summary
-            </h3>
-            <p className="text-xs text-slate-400">Order ID: <span className="text-amber-400 font-mono font-bold">{order.orderNumber}</span> • {new Date(order.createdAt).toLocaleString('en-IN')}</p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div className="space-y-1">
+            <OmtechoLogo size="md" subtitleText="Official Order Receipt" />
+            <p className="text-xs text-slate-400 mt-1">
+              Order ID: <span className="text-amber-400 font-mono font-bold">{order.orderNumber}</span> • {new Date(order.createdAt).toLocaleString('en-IN')}
+            </p>
           </div>
 
           <button

@@ -111,6 +111,17 @@ export const CartPage: React.FC = () => {
       // 1. Create order record in backend database
       const createdOrder = await api.createOrder(orderPayload);
 
+      // Save order ID to local storage so user can track it in My Orders
+      try {
+        const stored = JSON.parse(localStorage.getItem('sivakasi_placed_orders') || '[]');
+        if (!stored.includes(createdOrder.id)) {
+          stored.unshift(createdOrder.id);
+          localStorage.setItem('sivakasi_placed_orders', JSON.stringify(stored));
+        }
+      } catch (e) {
+        console.warn('Could not save order locally:', e);
+      }
+
       // 2. Trigger celebratory confetti
       confetti({
         particleCount: 80,

@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Lock, User, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useShop } from '../../context/ShopContext';
+import { OmtechoLogo } from '../../components/common/OmtechoLogo';
 
 export const AdminLogin: React.FC = () => {
   const { login, isAuthenticated } = useAuth();
@@ -46,15 +47,12 @@ export const AdminLogin: React.FC = () => {
     <div id="admin-login-page" className="min-h-[75vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md space-y-6">
         {/* Logo & Header */}
-        <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center mx-auto shadow-xl font-bold">
-            <Lock className="w-7 h-7" />
+        <div className="text-center space-y-3">
+          <div className="flex justify-center">
+            <OmtechoLogo size="lg" subtitleText="Owner Control Panel" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white">
-            Shop Owner Login
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-400">
-            {shopSettings?.shopName || 'Sri Meenakshi Sivakasi Fireworks'}
+          <p className="text-xs text-slate-400">
+            Sign in to manage orders, fireworks inventory, prices, and settings.
           </p>
         </div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Layers, Search, ShoppingBag, MessageCircle } from 'lucide-react';
+import { Home, Layers, ShoppingBag, MessageCircle, PackageCheck } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useShop } from '../../context/ShopContext';
 import { SearchModal } from '../common/SearchModal';
@@ -17,6 +17,7 @@ export const MobileBottomNav: React.FC = () => {
 
   const isHome = location.pathname === '/';
   const isCategories = location.pathname.startsWith('/categories');
+  const isOrders = location.pathname.startsWith('/my-orders') || location.pathname.startsWith('/orders');
   const isCart = location.pathname.startsWith('/cart');
 
   return (
@@ -30,7 +31,10 @@ export const MobileBottomNav: React.FC = () => {
           <Link
             to="/"
             id="mobile-nav-home"
-            className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-medium transition-colors ${
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] sm:text-[11px] font-medium transition-colors ${
               isHome ? 'text-amber-400 font-bold' : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -42,7 +46,7 @@ export const MobileBottomNav: React.FC = () => {
           <Link
             to="/categories"
             id="mobile-nav-categories"
-            className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-medium transition-colors ${
+            className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] sm:text-[11px] font-medium transition-colors ${
               isCategories ? 'text-amber-400 font-bold' : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -50,22 +54,23 @@ export const MobileBottomNav: React.FC = () => {
             <span>Categories</span>
           </Link>
 
-          {/* Search */}
-          <button
-            type="button"
-            id="mobile-nav-search"
-            onClick={() => setSearchOpen(true)}
-            className="flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-medium text-slate-400 hover:text-slate-200"
+          {/* My Orders */}
+          <Link
+            to="/my-orders"
+            id="mobile-nav-my-orders"
+            className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] sm:text-[11px] font-medium transition-colors ${
+              isOrders ? 'text-amber-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            }`}
           >
-            <Search className="w-5 h-5 mb-0.5 text-amber-400" />
-            <span>Search</span>
-          </button>
+            <PackageCheck className="w-5 h-5 mb-0.5" />
+            <span className={isOrders ? 'font-bold' : ''}>My Orders</span>
+          </Link>
 
           {/* Cart */}
           <Link
             to="/cart"
             id="mobile-nav-cart"
-            className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-medium transition-colors ${
+            className={`relative flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] sm:text-[11px] font-medium transition-colors ${
               isCart ? 'text-amber-400 font-bold' : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -92,7 +97,7 @@ export const MobileBottomNav: React.FC = () => {
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[11px] font-bold text-emerald-400 hover:text-emerald-300"
+            className="flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] sm:text-[11px] font-bold text-emerald-400 hover:text-emerald-300"
           >
             <MessageCircle className="w-5 h-5 mb-0.5" />
             <span>WhatsApp</span>

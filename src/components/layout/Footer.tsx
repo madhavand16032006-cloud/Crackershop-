@@ -12,6 +12,7 @@ import {
   Heart
 } from 'lucide-react';
 import { useShop } from '../../context/ShopContext';
+import { OmtechoLogo } from '../common/OmtechoLogo';
 import { getWhatsAppUrl } from '../../utils/whatsapp';
 
 export const Footer: React.FC = () => {
@@ -74,13 +75,8 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Column 1: Brand & Bio */}
           <div className="lg:col-span-2 space-y-4">
-            <Link to="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold">
-                <Sparkles className="w-5 h-5 text-slate-950" />
-              </div>
-              <span className="text-lg font-extrabold text-white">
-                {shopName}
-              </span>
+            <Link to="/" className="inline-flex items-center group">
+              <OmtechoLogo size="lg" subtitleText="Direct Sivakasi Factory Fireworks" />
             </Link>
 
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
@@ -126,6 +122,9 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/cart" className="hover:text-amber-400 transition-colors">My Cart / Review Order</Link>
+              </li>
+              <li>
+                <Link to="/my-orders" className="hover:text-amber-400 font-semibold transition-colors text-amber-400/90">My Orders & Live Tracking</Link>
               </li>
               <li>
                 <Link to="/about" className="hover:text-amber-400 transition-colors">About Sivakasi Heritage</Link>
@@ -210,6 +209,17 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-4">
             <Link to="/safety" className="hover:text-slate-300 transition-colors">Safety Pledge</Link>
             <Link to="/faq" className="hover:text-slate-300 transition-colors">Terms of Order</Link>
+            <button
+              type="button"
+              onClick={() => {
+                sessionStorage.removeItem('sivakasi_intro_viewed');
+                window.location.reload();
+              }}
+              className="hover:text-amber-400 text-slate-400 transition-colors flex items-center gap-1"
+              title="Replay Fuse Ignition & Fireworks Intro"
+            >
+              <span>🎆 Replay Intro</span>
+            </button>
             <Link to="/admin" className="hover:text-amber-400 transition-colors font-medium">Store Admin</Link>
           </div>
         </div>

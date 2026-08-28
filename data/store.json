@@ -8,20 +8,20 @@
     "passwordHash": "16032006"
   },
   "shopSettings": {
-    "shopName": "Sri Meenakshi Sivakasi Fireworks",
+    "shopName": "Omtecho Sivakasi Fireworks",
     "tagline": "Authentic Direct Factory Fireworks & Mega Crackers at Wholesale Prices",
     "ownerName": "Madhavan",
     "ownerPhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
     "logo": "https://images.unsplash.com/photo-1498931299472-f7a63a5a1cfa?auto=format&fit=crop&w=150&q=80",
-    "banner": "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1600&q=80",
+    "banner": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80",
     "phone": "+91 81225 80372",
     "whatsapp": "918122580372",
-    "email": "madhavan@srimeenakshifireworks.com",
+    "email": "support@omtecho.com",
     "address": "142/3-B, Sattur Road, Near Bypass Junction, Sivakasi",
     "city": "Sivakasi",
     "state": "Tamil Nadu",
     "pincode": "626123",
-    "description": "Direct from the Fireworks Capital of India, Sivakasi. We manufacture and supply 100% genuine, CSIR-NEERI approved Green Crackers with high safety standards, vibrant colours, and unbeatable festive discounts for Diwali, weddings, and celebrations across India.",
+    "description": "Direct from the Fireworks Capital of India, Sivakasi. Omtecho manufactures and supplies 100% genuine, CSIR-NEERI approved Green Crackers with high safety standards, vibrant colours, and unbeatable festive discounts for Diwali, weddings, and celebrations across India.",
     "announcement": "💥 DIWALI 2026 PRE-BOOKING OPEN! Get up to 60% Factory Discount on Early WhatsApp Orders! Free Sivakasi Gift Box on orders above ₹3,000!",
     "minimumOrderAmount": 500,
     "upiId": "madhavan.fireworks@okaxis",
@@ -118,7 +118,7 @@
       "originalPrice": 90,
       "description": "Classic high-sparkle 10cm electric sparklers with safe low-smoke emission. Perfect for kids under parental guidance. Emits brilliant white sparks for over 45 seconds.",
       "image": "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=600&q=80",
-      "stock": 150,
+      "stock": 147,
       "soundLevel": "Mute",
       "pieceCount": "1 Box (10 Pcs)",
       "featured": true,
@@ -142,7 +142,7 @@
       "originalPrice": 150,
       "description": "Vibrant multi-colour sparkling sticks emitting emerald green, ruby red, and golden flares. Long-lasting burn time of 65 seconds.",
       "image": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=600&q=80",
-      "stock": 120,
+      "stock": 119,
       "soundLevel": "Mute",
       "pieceCount": "1 Box (10 Pcs)",
       "featured": true,
@@ -487,7 +487,7 @@
       "originalPrice": 1700,
       "description": "Complete assorted gift pack with Sparklers (Electric & Colour), Flower Pots, Chakkars, Rockets, Fancy Shots, and Kids Roll Caps. Beautiful festive packaging.",
       "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80",
-      "stock": 65,
+      "stock": 64,
       "soundLevel": "Medium",
       "pieceCount": "1 Assorted Box (24 Varieties)",
       "featured": true,
@@ -527,6 +527,62 @@
     }
   ],
   "orders": [
+    {
+      "id": "ord_1787918881098",
+      "orderNumber": "#ORD1025",
+      "customer": {
+        "fullName": "Madhavan",
+        "mobile": "8122580372",
+        "whatsapp": "8122580372",
+        "address": "New Street",
+        "city": "Chennai",
+        "pincode": "607108",
+        "notes": ""
+      },
+      "items": [
+        {
+          "productId": "prod_spark_10cm",
+          "productName": "10 cm Electric Sparkler",
+          "category": "Sparklers",
+          "price": 45,
+          "originalPrice": 90,
+          "quantity": 3,
+          "subtotal": 135,
+          "image": "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=600&q=80",
+          "pieceCount": "1 Box (10 Pcs)"
+        },
+        {
+          "productId": "prod_gift_standard",
+          "productName": "Family Standard Diwali Gift Box (24 Items)",
+          "category": "Family Gift Boxes & Combos",
+          "price": 850,
+          "originalPrice": 1700,
+          "quantity": 1,
+          "subtotal": 850,
+          "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80",
+          "pieceCount": "1 Assorted Box (24 Varieties)"
+        },
+        {
+          "productId": "prod_spark_15cm_color",
+          "productName": "15 cm Multi-Colour Sparkler",
+          "category": "Sparklers",
+          "price": 75,
+          "originalPrice": 150,
+          "quantity": 1,
+          "subtotal": 75,
+          "image": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=600&q=80",
+          "pieceCount": "1 Box (10 Pcs)"
+        }
+      ],
+      "totalItems": 5,
+      "totalAmount": 1060,
+      "totalSavings": 1060,
+      "status": "DISPATCHED",
+      "whatsappStatus": "SENT",
+      "paymentNote": "Payment: To be confirmed by shop",
+      "createdAt": "2026-08-28T12:08:01.098Z",
+      "updatedAt": "2026-08-28T12:12:30.260Z"
+    },
     {
       "id": "ord_1021",
       "orderNumber": "#ORD1021",
@@ -698,5 +754,5 @@
       "createdAt": "2026-08-20T16:45:00.000Z"
     }
   ],
-  "orderCounter": 1024
+  "orderCounter": 1025
 }

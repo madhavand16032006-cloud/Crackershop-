@@ -30,6 +30,7 @@ export const ProductDetailPage: React.FC = () => {
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [isJustAdded, setIsJustAdded] = useState(false);
 
   const phone = shopSettings?.whatsapp || '918122580372';
   const shopName = shopSettings?.shopName || 'Sri Meenakshi Sivakasi Fireworks';
@@ -247,16 +248,33 @@ Please confirm order and delivery schedule.`;
               <button
                 type="button"
                 id="detail-add-to-cart-btn"
-                onClick={() => addToCart(product, quantity)}
+                onClick={() => {
+                  addToCart(product, quantity);
+                  setIsJustAdded(true);
+                  setTimeout(() => {
+                    setIsJustAdded(false);
+                  }, 1800);
+                }}
                 disabled={isOutOfStock}
                 className={`flex-1 py-3.5 px-6 rounded-2xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg transition-all ${
                   isOutOfStock
                     ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                    : isJustAdded
+                    ? 'bg-emerald-500 text-slate-950 ring-4 ring-emerald-400/40 scale-[1.02]'
                     : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-950/20 active:scale-98'
                 }`}
               >
-                <ShoppingBag className="w-4 h-4" />
-                {isOutOfStock ? 'Out of Stock' : 'Add to Shopping Cart'}
+                {isJustAdded ? (
+                  <>
+                    <CheckCircle2 className="w-5 h-5 text-slate-950" />
+                    <span>Added to Cart Successfully!</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>{isOutOfStock ? 'Out of Stock' : 'Add to Shopping Cart'}</span>
+                  </>
+                )}
               </button>
 
               <button

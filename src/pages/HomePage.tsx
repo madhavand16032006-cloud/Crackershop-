@@ -127,19 +127,19 @@ export const HomePage: React.FC = () => {
                 </a>
               </div>
 
-              {/* Trust Badges */}
-              <div className="pt-4 grid grid-cols-3 gap-3 border-t border-slate-800/80 text-left">
-                <div className="flex items-center gap-2">
+              {/* Trust Badges - Responsive wrap tags with clear spacing */}
+              <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 border-t border-slate-800/80">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-200">
                   <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="text-xs text-slate-300 font-medium">100% Sivakasi Origin</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">100% Sivakasi Origin</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-200">
                   <Award className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span className="text-xs text-slate-300 font-medium">Green Certified</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">Green Certified</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-200">
                   <Zap className="w-4 h-4 text-sky-400 shrink-0" />
-                  <span className="text-xs text-slate-300 font-medium">No Advance Online Pay</span>
+                  <span className="text-xs font-semibold whitespace-nowrap">No Advance Online Pay</span>
                 </div>
               </div>
             </div>
@@ -148,7 +148,7 @@ export const HomePage: React.FC = () => {
             <div className="lg:col-span-5 relative">
               <div className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl shadow-amber-950/40 group">
                 <img
-                  src={shopSettings?.banner || "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=800&q=80"}
+                  src={shopSettings?.banner || "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80"}
                   alt="Sivakasi Fireworks Celebration"
                   referrerPolicy="no-referrer"
                   className="w-full aspect-4/3 object-cover group-hover:scale-105 transition-transform duration-700 brightness-90"
@@ -310,7 +310,7 @@ export const HomePage: React.FC = () => {
                   Diwali Mega Gift Boxes & Family Combos
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-                  Hand-curated assortments containing complete varieties of sparklers, pots, chakkars, and sky shots with 50% factory discount.
+                  Hand-curated assortments containing complete varieties of sparklers, pots, chakkars, and sky shots with up to 60% factory discount.
                 </p>
               </div>
 

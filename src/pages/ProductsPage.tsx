@@ -47,7 +47,7 @@ export const ProductsPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // Sync category from URL
+  // Sync category and sort from URL
   useEffect(() => {
     const catParam = searchParams.get('category');
     if (catParam) {
@@ -56,6 +56,10 @@ export const ProductsPage: React.FC = () => {
     const searchParam = searchParams.get('search');
     if (searchParam) {
       setSearchQuery(searchParam);
+    }
+    const sortParam = searchParams.get('sort');
+    if (sortParam === 'discount' || searchParams.get('offers') === 'true') {
+      setSortBy('discount');
     }
   }, [searchParams]);
 
@@ -133,12 +137,20 @@ export const ProductsPage: React.FC = () => {
       {/* Header Banner */}
       <div className="rounded-3xl bg-slate-900 border border-slate-800 p-6 sm:p-8 relative overflow-hidden">
         <div className="max-w-3xl space-y-2 relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20">
-            <Flame className="w-3.5 h-3.5 text-orange-500 fill-orange-500" />
-            100% Genuine Sivakasi Fireworks
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20">
+              <Flame className="w-3.5 h-3.5 text-orange-500 fill-orange-500" />
+              100% Genuine Sivakasi Fireworks
+            </div>
+            {sortBy === 'discount' && (
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-black border border-emerald-500/40">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                60% Festive Deals Applied (Highest Discount First)
+              </div>
+            )}
           </div>
           <h1 className="text-2xl sm:text-4xl font-black text-white">
-            Wholesale Fireworks Catalogue
+            {sortBy === 'discount' ? '60% Factory Discount Deals & Offers' : 'Wholesale Fireworks Catalogue'}
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
             Browse our full 2026 festival selection at direct factory rates. Add items to your cart and send your order straight to the shop owner on WhatsApp.

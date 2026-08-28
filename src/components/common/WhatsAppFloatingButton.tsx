@@ -21,7 +21,7 @@ export const WhatsAppFloatingButton: React.FC = () => {
   };
 
   return (
-    <div id="whatsapp-floating-widget" className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40">
+    <div id="whatsapp-floating-widget" className="hidden lg:block fixed bottom-6 right-6 z-40">
       {/* Popover popup */}
       {isOpen && (
         <div

@@ -209,6 +209,19 @@ export const api = {
     return res.json();
   },
 
+  async lookupOrders(params: { ids?: string[]; query?: string }): Promise<Order[]> {
+    const searchParams = new URLSearchParams();
+    if (params.ids && params.ids.length > 0) {
+      searchParams.append('ids', params.ids.join(','));
+    }
+    if (params.query) {
+      searchParams.append('query', params.query);
+    }
+    const res = await fetch(`/api/orders-lookup?${searchParams.toString()}`);
+    if (!res.ok) throw new Error('Failed to lookup orders');
+    return res.json();
+  },
+
   async updateOrderStatus(id: string, status: string): Promise<Order> {
     const res = await fetch(`/api/orders/${id}/status`, {
       method: 'PUT',

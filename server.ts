@@ -283,6 +283,29 @@ app.post('/api/products/bulk', checkAuth, (req, res) => {
 });
 
 // ==================== ORDERS API ====================
+app.get('/api/orders-lookup', (req, res) => {
+  try {
+    const { query, ids } = req.query;
+    let results: any[] = [];
+    if (ids) {
+      const idArray = (ids as string).split(',').map(s => s.trim()).filter(Boolean);
+      results = idArray.map(id => db.getOrderById(id)).filter(Boolean);
+    } else if (query) {
+      const q = (query as string).trim().toLowerCase();
+      const all = db.getOrders();
+      results = all.filter(o =>
+        o.orderNumber.toLowerCase() === q ||
+        o.orderNumber.toLowerCase().includes(q) ||
+        o.customer.mobile.includes(q) ||
+        o.id === q
+      );
+    }
+    res.json(results);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/api/orders', checkAuth, (req, res) => {
   try {
     const { status, search } = req.query;

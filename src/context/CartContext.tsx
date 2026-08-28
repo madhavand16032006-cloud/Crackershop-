@@ -2,6 +2,12 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CartItem, Product } from '../types';
 import { useShop } from './ShopContext';
 
+export interface AddedToCartEvent {
+  id: string;
+  product: Product;
+  quantity: number;
+}
+
 interface CartContextType {
   cart: CartItem[];
   addToCart: (product: Product, quantity?: number) => void;
@@ -14,6 +20,8 @@ interface CartContextType {
   totalSavings: number;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
+  lastAddedNotification: AddedToCartEvent | null;
+  dismissAddedNotification: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -30,7 +38,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [lastAddedNotification, setLastAddedNotification] = useState<AddedToCartEvent | null>(null);
   const { showToast } = useShop();
+
+  const dismissAddedNotification = React.useCallback(() => {
+    setLastAddedNotification(null);
+  }, []);
 
   useEffect(() => {
     try {
@@ -46,19 +59,30 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
 
+    const actualQty = Math.max(1, quantity);
     const existing = cart.find((item) => item.product.id === product.id);
     if (existing) {
-      const newQty = Math.min(product.stock, existing.quantity + quantity);
+      const newQty = Math.min(product.stock, existing.quantity + actualQty);
       setCart((prev) =>
         prev.map((item) =>
           item.product.id === product.id ? { ...item, quantity: newQty } : item
         )
       );
-      showToast(`Updated "${product.name}" quantity in cart (${newQty})`);
+      showToast(`Updated "${product.name}" in cart (${newQty})`, 'success');
+      setLastAddedNotification({
+        id: Date.now().toString(),
+        product,
+        quantity: actualQty
+      });
     } else {
-      const addQty = Math.min(product.stock, Math.max(1, quantity));
+      const addQty = Math.min(product.stock, actualQty);
       setCart((prev) => [...prev, { product, quantity: addQty }]);
-      showToast(`Added "${product.name}" to cart!`);
+      showToast(`Added "${product.name}" to cart successfully!`, 'success');
+      setLastAddedNotification({
+        id: Date.now().toString(),
+        product,
+        quantity: addQty
+      });
     }
   };
 
@@ -118,7 +142,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         totalOriginalPrice,
         totalSavings,
         isCartOpen,
-        setIsCartOpen
+        setIsCartOpen,
+        lastAddedNotification,
+        dismissAddedNotification
       }}
     >
       {children}
