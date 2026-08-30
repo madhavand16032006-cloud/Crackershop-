@@ -77,7 +77,7 @@ export const ContactPage: React.FC = () => {
                 <div>
                   <span className="font-bold text-white block">Factory & Depot Address</span>
                   <p className="text-slate-400 text-xs mt-0.5 leading-relaxed">
-                    {shopSettings?.address || '142/3-B, Sattur Road, Sivakasi'}, {shopSettings?.city || 'Sivakasi'}, {shopSettings?.state || 'Tamil Nadu'} - {shopSettings?.pincode || '626123'}
+                    {shopSettings?.address || 'New Street, Sivakasi'}, {shopSettings?.city || 'Sivakasi'}, {shopSettings?.state || 'Tamil Nadu'} - {shopSettings?.pincode || '626123'}
                   </p>
                 </div>
               </div>

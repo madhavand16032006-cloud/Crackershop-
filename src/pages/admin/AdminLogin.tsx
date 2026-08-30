@@ -44,7 +44,7 @@ export const AdminLogin: React.FC = () => {
   };
 
   return (
-    <div id="admin-login-page" className="min-h-[75vh] flex items-center justify-center px-4 py-12">
+    <div id="admin-login-page" className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md space-y-6">
         {/* Logo & Header */}
         <div className="text-center space-y-3">

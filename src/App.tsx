@@ -13,6 +13,7 @@ import { ToastContainer } from './components/common/ToastContainer';
 import { AddToCartNotification } from './components/common/AddToCartNotification';
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { FestiveLoader } from './components/common/FestiveLoader';
+import { OwnerShortcutListener } from './components/common/OwnerShortcutListener';
 
 // Customer Pages
 import { HomePage } from './pages/HomePage';
@@ -88,6 +89,7 @@ export function App() {
           )}
           <BrowserRouter>
             <ScrollToTop />
+            <OwnerShortcutListener />
             <Routes>
               {/* Customer Routes */}
               <Route path="/" element={<CustomerLayout />}>

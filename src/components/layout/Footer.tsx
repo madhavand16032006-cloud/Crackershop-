@@ -166,7 +166,7 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <span>
-                  {shopSettings?.address || '142/3-B, Sattur Road, Sivakasi'}, {shopSettings?.city || 'Sivakasi'}, {shopSettings?.state || 'Tamil Nadu'} - {shopSettings?.pincode || '626123'}
+                  {shopSettings?.address || 'New Street, Sivakasi'}, {shopSettings?.city || 'Sivakasi'}, {shopSettings?.state || 'Tamil Nadu'} - {shopSettings?.pincode || '626123'}
                 </span>
               </div>
 
@@ -220,7 +220,10 @@ export const Footer: React.FC = () => {
             >
               <span>🎆 Replay Intro</span>
             </button>
-            <Link to="/admin" className="hover:text-amber-400 transition-colors font-medium">Store Admin</Link>
+            <Link to="/admin" className="hover:text-amber-400 transition-colors font-medium flex items-center gap-1" title="Store Owner Portal (Shortcut: Ctrl + M)">
+              <span>Store Admin</span>
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700 rounded">Ctrl+M</kbd>
+            </Link>
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ const DEFAULT_SHOP_SETTINGS: ShopSettings = {
   phone: "+91 81225 80372",
   whatsapp: "918122580372", // international format without plus for wa.me
   email: "support@omtecho.com",
-  address: "142/3-B, Sattur Road, Near Bypass Junction, Sivakasi",
+  address: "New Street, Sivakasi",
   city: "Sivakasi",
   state: "Tamil Nadu",
   pincode: "626123",
@@ -33,7 +33,7 @@ const DEFAULT_SHOP_SETTINGS: ShopSettings = {
   announcement: "💥 DIWALI 2026 PRE-BOOKING OPEN! Get up to 60% Factory Discount on Early WhatsApp Orders! Free Sivakasi Gift Box on orders above ₹3,000!",
   minimumOrderAmount: 500,
   upiId: "madhavan.fireworks@okaxis",
-  licenseNumber: "SIV/EXP/TN/2026/4489",
+  licenseNumber: "11111111111111",
   festivalSeason: "Diwali 2026 Mega Celebration",
   socialLinks: {
     facebook: "https://facebook.com/sivakasifireworks",

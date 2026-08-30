@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Eye, MessageCircle, Plus, Minus, Flame, Sparkles, Check } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Flame, Sparkles, Check } from 'lucide-react';
 import { Product } from '../../types';
 import { useCart } from '../../context/CartContext';
-import { useShop } from '../../context/ShopContext';
-import { formatCurrency, getWhatsAppUrl } from '../../utils/whatsapp';
+import { formatCurrency } from '../../utils/whatsapp';
 
 interface ProductCardProps {
   product: Product;
@@ -12,7 +11,6 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
-  const { shopSettings } = useShop();
   const [quantity, setQuantity] = useState(1);
   const [isJustAdded, setIsJustAdded] = useState(false);
 
@@ -22,21 +20,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const isOutOfStock = product.stock <= 0;
   const isLowStock = product.stock > 0 && product.stock <= 15;
-
-  const handleWhatsAppQuickOrder = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const phone = shopSettings?.whatsapp || '919842178901';
-    const text = `🎆 Hello ${shopSettings?.shopName || 'Sri Meenakshi Sivakasi Fireworks'},
-
-I would like to order:
-*${product.name}* (${product.pieceCount || '1 Pack'})
-Quantity: ${quantity}
-Estimated Price: ${formatCurrency(product.price * quantity)}
-
-Please confirm availability and share order confirmation.`;
-    window.open(getWhatsAppUrl(phone, text), '_blank');
-  };
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -205,29 +188,6 @@ Please confirm availability and share order confirmation.`;
               Out of Stock
             </button>
           )}
-
-          {/* Quick Action Secondary Row */}
-          <div className="grid grid-cols-2 gap-1.5 text-xs">
-            <Link
-              to={`/product/${product.id}`}
-              id={`view-details-${product.id}`}
-              className="flex items-center justify-center gap-1 py-1.5 px-2 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white transition-colors border border-slate-700/50 text-[11px] font-medium"
-            >
-              <Eye className="w-3 h-3 shrink-0" />
-              <span className="truncate">Details</span>
-            </Link>
-
-            <button
-              type="button"
-              id={`quick-whatsapp-${product.id}`}
-              onClick={handleWhatsAppQuickOrder}
-              className="flex items-center justify-center gap-1 py-1.5 px-2 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 text-emerald-400 hover:text-emerald-300 transition-colors border border-emerald-700/40 text-[11px] font-medium"
-              title="Order on WhatsApp directly"
-            >
-              <MessageCircle className="w-3 h-3 text-emerald-400 shrink-0" />
-              <span className="truncate">WhatsApp</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
